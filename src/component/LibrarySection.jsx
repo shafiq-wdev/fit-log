@@ -19,14 +19,14 @@ const LibrarySection = async () => {
   console.log(libraryData,"libraryData");
 
   return (
-    <section className="mx-auto my-[50px] w-full max-w-7xl border border-dashed border-sky-400 bg-[#0d0f12] p-6 text-white">
+    <section className="mx-auto my-[50px] w-full max-w-7xl bg-[#0d0f12] p-6 text-white">
       <h1 className="font-sans text-3xl font-black uppercase tracking-tight text-white">
         THE LIBRARY
       </h1>
       <p className="mt-1 font-sans text-sm font-normal text-slate-400">
         Twelve lifts covering every major muscle group.
       </p>
-            <div className='grid grid-cols-3 gap-4 my-[30px]'>
+            <div className='container mx-auto grid grid-cols-3 gap-4 my-[30px]'>
             {
             libraryData.map((library,ind)=>{
                 return <LibraryCard key={ind} library={library}/>
