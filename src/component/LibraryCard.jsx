@@ -1,13 +1,16 @@
 
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const LibraryCard = ({ library }) => {
   if (!library) return null;
 
   return (
-    <div className="w-full max-w-[380px] overflow-hidden rounded-2xl border border-slate-800/60 bg-[#14161d] font-sans text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-slate-700 hover:shadow-2xl">
-
+    <Link
+      href={`/workout/${library.id}`}
+      className="group block w-full max-w-[380px] overflow-hidden rounded-2xl border border-slate-800/60 bg-[#14161d] font-sans text-white shadow-xl transition-all duration-300 hover:-translate-y-2 hover:border-[#ccff00]/40 hover:shadow-2xl"
+    >
       {/* Banner Image */}
       <div className="relative h-80 w-full overflow-hidden bg-slate-900">
         <Image
@@ -15,11 +18,16 @@ const LibraryCard = ({ library }) => {
           alt={library.name}
           width={400}
           height={400}
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
 
         {/* Image Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+        {/* View Details */}
+        <div className="absolute bottom-4 right-4 translate-y-3 rounded-full bg-[#ccff00] px-4 py-2 text-xs font-black uppercase tracking-wide text-black opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          View Details →
+        </div>
       </div>
 
       {/* Card Content */}
@@ -37,11 +45,12 @@ const LibraryCard = ({ library }) => {
           ))}
         </div>
 
-        {/* Title & Subtitle */}
-        <h3 className="mt-4 text-2xl font-black uppercase tracking-wide text-white">
+        {/* Title */}
+        <h3 className="mt-4 text-2xl font-black uppercase tracking-wide text-white transition-colors duration-300 group-hover:text-[#ccff00]">
           {library.name}
         </h3>
 
+        {/* Equipment */}
         <p className="mt-1 text-sm text-slate-400">
           {library.equipment}
         </p>
@@ -49,11 +58,11 @@ const LibraryCard = ({ library }) => {
         {/* Divider */}
         <div className="my-4 h-px w-full bg-slate-800/80" />
 
-        {/* Metrics Row */}
-        <div className="flex items-center justify-between gap-3 text-sm font-medium text-slate-300">
+        {/* Metrics */}
+        <div className="space-y-2 text-sm font-medium text-slate-300">
 
           {/* Duration */}
-          <div className="flex items-center gap-1.5 rounded-lg px-1 py-2">
+          <div className="flex items-center gap-2 rounded-lg px-1 py-2 transition-colors group-hover:text-white">
             <svg
               className="h-4 w-4 text-slate-400"
               fill="none"
@@ -71,8 +80,8 @@ const LibraryCard = ({ library }) => {
             <span>{library.duration} min</span>
           </div>
 
-          {/* Calories Burned */}
-          <div className="flex items-center gap-1.5 rounded-lg px-1 py-2">
+          {/* Calories */}
+          <div className="flex items-center gap-2 rounded-lg px-1 py-2">
             <svg
               className="h-4 w-4 text-slate-400"
               fill="currentColor"
@@ -89,7 +98,7 @@ const LibraryCard = ({ library }) => {
           </div>
 
           {/* Rating */}
-          <div className="flex items-center gap-1.5 rounded-lg px-1 py-2">
+          <div className="flex items-center gap-2 rounded-lg px-1 py-2">
             <svg
               className="h-4 w-4 text-[#ccff00]"
               fill="none"
@@ -100,7 +109,7 @@ const LibraryCard = ({ library }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.838 1.688l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
               />
             </svg>
 
@@ -108,10 +117,9 @@ const LibraryCard = ({ library }) => {
               {library.rating}
             </span>
           </div>
-
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
