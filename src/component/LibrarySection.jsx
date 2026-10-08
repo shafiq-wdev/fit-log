@@ -26,12 +26,14 @@ const LibrarySection = async () => {
       <p className="mt-1 font-sans text-sm font-normal text-slate-400">
         Twelve lifts covering every major muscle group.
       </p>
-      {
+            <div className='grid grid-cols-3 gap-4 my-[30px]'>
+            {
             libraryData.map((library,ind)=>{
                 return <LibraryCard key={ind} library={library}/>
             })
 
-      }
+           }
+           </div>
       
     </section>
   );

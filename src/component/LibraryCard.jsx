@@ -6,7 +6,7 @@ const LibraryCard = ({ library }) => {
   if (!library) return null;
 
   return (
-    <div className='grid grid-cols-3 items-center gap-4'>
+    
     <div className="w-full max-w-[380px] overflow-hidden rounded-2xl bg-[#14161d] text-white shadow-xl border border-slate-800/60 font-sans ">
       {/* Banner Image */}
       <div className="relative h-48 w-full overflow-hidden bg-slate-900 ">
@@ -72,7 +72,7 @@ const LibraryCard = ({ library }) => {
         </div>
       </div>
     </div>
-    </div>
+    
   );
 };
 
