@@ -8,11 +8,6 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-// export const instant = false
- 
-// export default function DashboardLayout({ children }) {
-//   return <DashboardShell>{children}</DashboardShell>
-// }
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",

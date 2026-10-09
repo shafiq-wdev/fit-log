@@ -33,7 +33,7 @@ const Navbar = () => {
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 md:flex">
 
           <Link
-            href="/workouts"
+            href="/"
             className="rounded-full bg-[#172000] px-4 py-2 text-[11px] font-medium text-[#b7ff00] transition duration-200 hover:bg-[#243000]"
           >
             Workouts
