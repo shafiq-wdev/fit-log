@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import React from "react";
 import { notFound } from "next/navigation";
@@ -35,216 +34,150 @@ const Page = async ({ params }) => {
     notFound();
   }
 
-  const library = libraryData.find(
-    (item) => String(item.id) === String(id)
-  );
+  const library = libraryData.find((item) => String(item.id) === String(id));
 
   if (!library) {
     notFound();
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-base-200 via-base-100 to-base-200 px-4 py-10 md:py-14">
-
-      <div className="container mx-auto max-w-6xl">
-
+    <main className="min-h-screen bg-[#0d0f12] px-3 py-6 text-white sm:px-5 sm:py-8">
+      <div className="mx-auto max-w-7xl p-2 sm:p-4">
         {/* Main Card */}
-        <div className="overflow-hidden rounded-[2rem] border border-base-300/70 bg-base-100 shadow-2xl">
+        <div className="grid gap-5 p-3 sm:p-4 lg:grid-cols-[1fr_1fr] lg:gap-7">
+          {/* Workout Image */}
+          <div className="relative min-h-[300px] overflow-hidden rounded-lg bg-[#171a20] sm:min-h-[420px] lg:min-h-[520px]">
+            <Image
+              src={library.image}
+              alt={library.name}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
 
-          <div className="grid lg:grid-cols-2">
+          {/* Workout Details */}
+          <div className="flex min-w-0 flex-col gap-4 py-1">
+            {/* Heading */}
+            <div>
+              <h1 className="text-2xl font-black uppercase leading-tight tracking-tight sm:text-3xl">
+                {library.name}
+              </h1>
 
-            {/* ================= IMAGE ================= */}
-            <div className="relative min-h-[380px] overflow-hidden lg:min-h-[620px]">
+              <p className="mt-2 text-xs leading-5 text-gray-400 sm:text-sm">
+                {library.description}
+              </p>
 
-              <Image
-                src={library.image}
-                alt={library.name}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-700 hover:scale-105"
-              />
-
-              {/* Dark Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-              {/* Difficulty Badge */}
-              <div className="absolute left-6 top-6">
-                <span className="rounded-full border border-white/20 bg-black/50 px-5 py-2 text-sm font-bold text-white shadow-lg backdrop-blur-xl">
-                  {library.difficulty}
-                </span>
-              </div>
-
-              {/* Image Bottom Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:p-8">
-
-                <p className="mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/70">
-                  Workout
-                </p>
-
-                <h1 className="text-3xl font-black tracking-tight md:text-4xl">
-                  {library.name}
-                </h1>
-
+              {/* Muscle Groups */}
+              <div className="mt-3 flex flex-wrap gap-2">
+                {library.muscleGroups?.map((muscle) => (
+                  <span
+                    key={muscle}
+                    className="rounded-full bg-[#b7ff00] px-3 py-1 text-[10px] font-bold text-black"
+                  >
+                    {muscle}
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* ================= CONTENT ================= */}
-            <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+            {/* Workout Information */}
+            <div className="overflow-hidden rounded-lg border border-[#252933] bg-[#151820]">
+              {[
+                { label: "Equipment", value: library.equipment },
+                { label: "Difficulty", value: library.difficulty },
+                { label: "Sets", value: library.sets },
+                { label: "Duration", value: `${library.duration} min` },
+                { label: "Calories", value: `${library.caloriesBurned} kcal` },
+                { label: "Rating", value: library.rating },
+              ].map((item, index) => (
+                <div
+                  key={item.label}
+                  className={`flex min-h-9 items-center justify-between gap-4 px-3 py-2 ${
+                    index !== 0 ? "border-t border-[#252933]" : ""
+                  }`}
+                >
+                  <span className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+                    {item.label}
+                  </span>
 
-              {/* Heading */}
-              <div>
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">
-                  Workout Details
-                </p>
+                  <span className="text-right text-xs font-medium text-gray-200">
+                    {item.value}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-                <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-                  {library.name}
-                </h2>
+            {/* Instructions */}
+            <div>
+              <h2 className="text-xs font-extrabold uppercase tracking-wide">
+                Instructions
+              </h2>
 
-                <p className="mt-4 text-sm leading-7 text-base-content/60 sm:text-base">
-                  {library.description}
-                </p>
-              </div>
-
-              {/* Muscle Groups */}
-              <div className="mt-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-base-content/50">
-                  Target Muscles
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {library.muscleGroups?.map((muscle) => (
-                    <span
-                      key={muscle}
-                      className="rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-bold text-primary transition-all duration-300 hover:border-primary/40 hover:bg-primary/20"
-                    >
-                      {muscle}
-                    </span>
+              {Array.isArray(library.instructions) ? (
+                <ol className="mt-2 list-inside list-decimal space-y-2 text-xs leading-5 text-gray-400">
+                  {library.instructions.map((instruction, index) => (
+                    <li key={index}>{instruction}</li>
                   ))}
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-
-                {/* Duration */}
-                <div className="group rounded-2xl border border-base-300 bg-base-200/60 p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                  <p className="text-xs font-medium text-base-content/50">
-                    Duration
-                  </p>
-
-                  <p className="mt-2 text-lg font-black">
-                    {library.duration}
-                  </p>
-
-                  <p className="text-xs text-base-content/50">
-                    minutes
-                  </p>
-                </div>
-
-                {/* Calories */}
-                <div className="group rounded-2xl border border-base-300 bg-base-200/60 p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                  <p className="text-xs font-medium text-base-content/50">
-                    Calories
-                  </p>
-
-                  <p className="mt-2 text-lg font-black">
-                    {library.caloriesBurned}
-                  </p>
-
-                  <p className="text-xs text-base-content/50">
-                    kcal
-                  </p>
-                </div>
-
-                {/* Sets */}
-                <div className="group rounded-2xl border border-base-300 bg-base-200/60 p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                  <p className="text-xs font-medium text-base-content/50">
-                    Sets
-                  </p>
-
-                  <p className="mt-2 text-lg font-black">
-                    {library.sets}
-                  </p>
-
-                  <p className="text-xs text-base-content/50">
-                    total
-                  </p>
-                </div>
-
-                {/* Rating */}
-                <div className="group rounded-2xl border border-base-300 bg-base-200/60 p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                  <p className="text-xs font-medium text-base-content/50">
-                    Rating
-                  </p>
-
-                  <p className="mt-2 text-lg font-black">
-                    ⭐ {library.rating}
-                  </p>
-
-                  <p className="text-xs text-base-content/50">
-                    excellent
-                  </p>
-                </div>
-
-              </div>
-
-              {/* Equipment */}
-              <div className="mt-5 rounded-2xl border border-base-300 bg-base-200/50 p-5">
-                <div className="flex items-center justify-between gap-4">
-
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-base-content/50">
-                      Equipment
-                    </p>
-
-                    <p className="mt-2 font-bold">
-                      {library.equipment}
-                    </p>
-                  </div>
-
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-xl">
-                    🏋️
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Instructions */}
-              <div className="mt-5 rounded-2xl border border-base-300 bg-base-200/50 p-5">
-
-                <p className="text-xs font-bold uppercase tracking-wider text-base-content/50">
-                  Instructions
-                </p>
-
-                <p className="mt-2 text-sm leading-7 text-base-content/70">
+                </ol>
+              ) : (
+                <p className="mt-2 text-xs leading-5 text-gray-400">
                   {library.instructions}
                 </p>
+              )}
+            </div>
 
-              </div>
+            {/* Action Buttons */}
+            <div className="mt-auto flex flex-wrap items-center gap-2 pt-1">
+              <button
 
-              {/* Buttons */}
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                type="button"
+                
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#b7ff00] px-4 py-2.5 text-[11px] font-bold text-black transition hover:bg-[#caff36]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="5" width="18" height="16" rx="2" />
+                  <path d="M16 3v4M8 3v4M3 11h18" />
+                </svg>
+                Add to today's plan
+              </button>
 
-                <button className="btn btn-primary h-12 flex-1 rounded-xl border-0 px-6 font-bold shadow-lg shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl">
-                  Add to today&apos;s plan
-                </button>
-
-                <button className="btn btn-outline h-12 flex-1 rounded-xl px-6 font-bold transition-all duration-300 hover:-translate-y-0.5">
-                  Save for later
-                </button>
-
-              </div>
-
+              <button
+                type="button"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-[#303541] px-4 py-2.5 text-[11px] font-medium text-gray-300 transition hover:border-[#b7ff00] hover:text-[#b7ff00]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-4-6 4z" />
+                </svg>
+                Save for later
+              </button>
             </div>
           </div>
         </div>
-
       </div>
     </main>
   );
 };
 
 export default Page;
-
