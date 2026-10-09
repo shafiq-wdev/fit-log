@@ -3,6 +3,8 @@ import Image from "next/image";
 import React from "react";
 import { notFound } from "next/navigation";
 
+export const instant = false;
+
 const getLibrary = async () => {
   try {
     const res = await fetch("https://api.abcz.workers.dev/api/fitlog", {
